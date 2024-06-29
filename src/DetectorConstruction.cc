@@ -54,7 +54,7 @@
 
 #include "CLHEP/Units/SystemOfUnits.h"
 
-namespace brooklyn2024
+namespace Detectors
 {
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

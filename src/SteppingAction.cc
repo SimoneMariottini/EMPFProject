@@ -34,7 +34,7 @@
 #include "G4Step.hh"
 #include "G4RunManager.hh"
 
-namespace brooklyn2024
+namespace Detectors
 {
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -71,37 +71,5 @@ void SteppingAction::UserSteppingAction(const G4Step* step)
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-}
-
-namespace brooklyn2024Acceptance
-{
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-SteppingAction::SteppingAction(const brooklyn2024::DetectorConstruction* detConstruction,
-                               EventAction* eventAction)
-  : fDetConstruction(detConstruction),
-    fEventAction(eventAction)
-{}
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-void SteppingAction::UserSteppingAction(const G4Step* step)
-{
-// Collect energy and track length step by step
-
-  // get volume of the current step
-  auto volume = step->GetPreStepPoint()->GetTouchableHandle()->GetVolume();
-
-  if( volume == fDetConstruction->GetFiberPV(1)){
-    fEventAction->SetEntered(true);
-  }
-  else {
-    if(volume == fDetConstruction->GetFiberPV(14) && fEventAction->GetEntered()){
-      fEventAction->SetExited(true);
-    }
-  }
-}
 
 }

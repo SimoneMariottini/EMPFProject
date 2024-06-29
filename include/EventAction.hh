@@ -33,7 +33,7 @@
 #include "G4UserEventAction.hh"
 #include "globals.hh"
 
-namespace brooklyn2024
+namespace Detectors
 {
   #define NLAYERS 16
 
@@ -74,40 +74,6 @@ inline void EventAction::AddLayer(G4int i, G4double de, G4double dl) {
 
 }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-namespace brooklyn2024Acceptance
-{
-  #define NLAYERS 16
-
-/// Event action class
-///
-/// It defines data members to hold the energy deposit and track lengths
-/// of charged particles in Absober and Gap layers:
-/// - fEnergyAbs, fEnergyGap, fTrackLAbs, fTrackLGap
-/// which are collected step by step via the functions
-/// - AddAbs(), AddGap()
-
-class EventAction : public G4UserEventAction
-{
-  public:
-    EventAction() = default;
-    ~EventAction() override = default;
-
-    void   BeginOfEventAction(const G4Event* event) override;
-    void   EndOfEventAction(const G4Event* event) override;
-
-    G4bool const GetEntered() {return fEntered;}
-    G4bool const GetExited() {return fExited;}
-
-    void SetEntered(G4bool check) {fEntered = check;}
-    void SetExited(G4bool check) {fExited = check;}
-
-  private:
-    G4bool fEntered = false;
-    G4bool fExited = false;
-};
-
-}
 
 #endif
 

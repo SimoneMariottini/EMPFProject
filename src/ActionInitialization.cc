@@ -35,7 +35,7 @@
 
 //using namespace brooklyn2024;
 
-namespace brooklyn2024
+namespace Detectors
 {
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -56,37 +56,6 @@ void ActionInitialization::BuildForMaster() const
 void ActionInitialization::Build() const
 {
   SetUserAction(new PrimaryGeneratorAction);
-  SetUserAction(new RunAction);
-  auto eventAction = new EventAction;
-  SetUserAction(eventAction);
-  SetUserAction(new SteppingAction(fDetConstruction,eventAction));
-}
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-}
-
-namespace brooklyn2024Acceptance
-{
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-ActionInitialization::ActionInitialization(brooklyn2024::DetectorConstruction* detConstruction)
- : fDetConstruction(detConstruction)
-{}
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-void ActionInitialization::BuildForMaster() const
-{
-  SetUserAction(new RunAction);
-}
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-void ActionInitialization::Build() const
-{
-  SetUserAction(new brooklyn2024::PrimaryGeneratorAction);
   SetUserAction(new RunAction);
   auto eventAction = new EventAction;
   SetUserAction(eventAction);

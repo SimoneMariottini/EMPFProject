@@ -33,7 +33,7 @@
 #include "G4VUserActionInitialization.hh"
 #include "DetectorConstruction.hh"
 
-namespace brooklyn2024
+namespace Detectors
 {
 
 /// Action initialization class.
@@ -49,26 +49,6 @@ class ActionInitialization : public G4VUserActionInitialization
 
   private:
     DetectorConstruction* fDetConstruction = nullptr;
-};
-
-}
-
-namespace brooklyn2024Acceptance
-{
-
-/// Action initialization class.
-
-class ActionInitialization : public G4VUserActionInitialization
-{
-  public:
-    ActionInitialization(brooklyn2024::DetectorConstruction*);
-    ~ActionInitialization() override = default;
-
-    void BuildForMaster() const override;
-    void Build() const override;
-
-  private:
-    brooklyn2024::DetectorConstruction* fDetConstruction = nullptr;
 };
 
 }

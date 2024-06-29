@@ -36,7 +36,7 @@
 class G4GeneralParticleSource;
 class G4Event;
 
-namespace brooklyn2024
+namespace Detectors
 {
 
 /// The primary generator action class with particle gum.

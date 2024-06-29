@@ -35,7 +35,7 @@
 #include "G4UnitsTable.hh"
 #include "G4SystemOfUnits.hh"
 
-namespace brooklyn2024
+namespace Detectors
 {
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -144,52 +144,6 @@ void RunAction::EndOfRunAction(const G4Run* /*run*/)
 
   // save histograms & ntuple
   //
-  analysisManager->Write();
-  analysisManager->CloseFile();
-}
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-}
-
-namespace brooklyn2024Acceptance
-{
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-RunAction::RunAction()
-{
-  // set printing event number per each event
-  G4RunManager::GetRunManager()->SetPrintProgress(1);
-
-  auto analysisManager = G4AnalysisManager::Instance();
-
-  analysisManager->SetVerboseLevel(1);
-  analysisManager->SetNtupleMerging(true);
-
-  analysisManager->CreateH1("Acceptance" ,"Entered and exited", 2, -0.5, 1.5);
-}
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-void RunAction::BeginOfRunAction(const G4Run* /*run*/)
-{
-  // Get analysis manager
-  auto analysisManager = G4AnalysisManager::Instance();
-
-  // Open an output file
-  //
-  G4String fileName = "brooklyn2024Acceptance.root";
-
-  analysisManager->OpenFile(fileName);
-  G4cout << "Using " << analysisManager->GetType() << G4endl;
-}
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-void RunAction::EndOfRunAction(const G4Run* /*run*/)
-{
-  auto analysisManager = G4AnalysisManager::Instance();
   analysisManager->Write();
   analysisManager->CloseFile();
 }

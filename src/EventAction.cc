@@ -38,7 +38,7 @@
 #include "Randomize.hh"
 #include <iomanip>
 
-namespace brooklyn2024
+namespace Detectors
 {
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -100,30 +100,4 @@ void EventAction::EndOfEventAction(const G4Event* event)
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo.....
 
-}
-
-namespace brooklyn2024Acceptance
-{
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-void EventAction::BeginOfEventAction(const G4Event* /*event*/)
-{
-  // initialisation per event
-  fEntered = false;
-  fExited = false;
-
-}
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-void EventAction::EndOfEventAction(const G4Event* event)
-{
-  auto analysisManager = G4AnalysisManager::Instance();
-
-  if(fEntered)
-    analysisManager->FillH1(0, 0);
-  if(fExited)
-    analysisManager->FillH1(0, 1);
-}
 }

@@ -34,7 +34,7 @@
 #include "DetectorConstruction.hh"
 #include "EventAction.hh"
 
-namespace brooklyn2024
+namespace Detectors
 {
 
 /// Stepping action class.
@@ -58,32 +58,4 @@ private:
 };
 
 }
-
-namespace brooklyn2024Acceptance
-{
-
-/// Stepping action class.
-///
-/// In UserSteppingAction() there are collected the energy deposit and track
-/// lengths of charged particles in Absober and Gap layers and
-/// updated in EventAction.
-
-class SteppingAction : public G4UserSteppingAction
-{
-public:
-  SteppingAction(const brooklyn2024::DetectorConstruction* detConstruction,
-                 EventAction* eventAction);
-  ~SteppingAction() override = default;
-
-  void UserSteppingAction(const G4Step* step) override;
-
-private:
-  const brooklyn2024::DetectorConstruction* fDetConstruction = nullptr;
-  EventAction* fEventAction = nullptr;
-};
-
-}
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
 #endif

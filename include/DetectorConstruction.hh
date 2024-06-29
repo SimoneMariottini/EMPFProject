@@ -36,7 +36,7 @@
 class G4VPhysicalVolume;
 class G4GlobalMagFieldMessenger;
 
-namespace brooklyn2024
+namespace Detectors
 {
   #define FILLCOLOR false
   #define NLAYERS 16

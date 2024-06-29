@@ -40,7 +40,7 @@
 #include "G4SystemOfUnits.hh"
 #include "Randomize.hh"
 
-namespace brooklyn2024
+namespace Detectors
 {
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
