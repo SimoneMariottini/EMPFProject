@@ -53,25 +53,6 @@ class ActionInitialization : public G4VUserActionInitialization
 
 }
 
-namespace brooklyn2024Acceptance
-{
-
-/// Action initialization class.
-
-class ActionInitialization : public G4VUserActionInitialization
-{
-  public:
-    ActionInitialization(brooklyn2024::DetectorConstruction*);
-    ~ActionInitialization() override = default;
-
-    void BuildForMaster() const override;
-    void Build() const override;
-
-  private:
-    brooklyn2024::DetectorConstruction* fDetConstruction = nullptr;
-};
-
-}
 
 #endif
 
