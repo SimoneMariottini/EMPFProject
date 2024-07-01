@@ -30,9 +30,14 @@
 #include "SteppingAction.hh"
 #include "EventAction.hh"
 #include "DetectorConstruction.hh"
+#include "G4SystemOfUnits.hh"
 
 #include "G4Step.hh"
 #include "G4RunManager.hh"
+#include "G4Electron.hh"
+#include "G4Positron.hh"
+#include "G4Gamma.hh"
+#include "G4ParticleDefinition.hh"
 
 namespace Detectors
 {
@@ -49,24 +54,33 @@ SteppingAction::SteppingAction(const DetectorConstruction* detConstruction,
 
 void SteppingAction::UserSteppingAction(const G4Step* step)
 {
+  G4double radLenght = 1.86*cm;
 // Collect energy and track length step by step
 
   // get volume of the current step
   auto volume = step->GetPreStepPoint()->GetTouchableHandle()->GetVolume();
-
+  auto position = step->GetPreStepPoint()->GetPosition();
+  auto particle = step->GetTrack()->GetParticleDefinition();
   // energy deposit
   auto edep = step->GetTotalEnergyDeposit();
 
-  // step length
-  G4double stepLength = 0.;
-  if ( step->GetTrack()->GetDefinition()->GetPDGCharge() != 0. ) {
-    stepLength = step->GetStepLength();
-  }
-
-  for(int i = 0; i < NLAYERS; i++){
-    if ( volume == fDetConstruction->GetFiberPV(i)) {
-        fEventAction->AddLayer(i, edep,stepLength);
-    }
+  if ( volume == fDetConstruction->GetDetectorPV()) {
+      fEventAction->AddEnergy(edep);
+      if (position.getZ() <= -15*radLenght){
+          fEventAction->Add5X0Energy(edep);
+      }
+      
+      if(particle == G4Electron::Definition()){
+        fEventAction->AddElectronEnergy(edep);
+      }
+      else if(particle == G4Positron::Definition()){
+        fEventAction->AddPositronEnergy(edep);
+      }
+      else if(particle == G4Gamma::Definition()){
+        fEventAction->AddPhotonEnergy(edep);
+      }
+      
+      fEventAction->AddLongEnergy((int)(position.getZ()/(radLenght*0.5)) + 40, edep);
   }
 }
 

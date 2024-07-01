@@ -38,9 +38,6 @@ class G4GlobalMagFieldMessenger;
 
 namespace Detectors
 {
-  #define FILLCOLOR false
-  #define NLAYERS 16
-  #define MAXNFIBERS 80
 
 /// Detector construction class to define materials and geometry.
 /// The hodoscope is a block made up of scintillating fiber layers.
@@ -54,21 +51,6 @@ namespace Detectors
 /// - The width of the block - 16mm; 
 /// - The lenght of the block - 20cm.
 
-/// To be eliminated:
-/// Detector construction class to define materials and geometry.
-/// The calorimeter is a box made of a given number of layers. A layer consists
-/// of an absorber plate and of a detection gap. The layer is replicated.
-///
-/// Four parameters define the geometry of the calorimeter :
-///
-/// - the thickness of an absorber plate,
-/// - the thickness of a gap,
-/// - the number of layers,
-/// - the transverse size of the calorimeter (the input face is a square).
-///
-/// In addition a transverse uniform magnetic field is defined
-/// via G4GlobalMagFieldMessenger class.
-
 class DetectorConstruction : public G4VUserDetectorConstruction
 {
   public:
@@ -81,7 +63,7 @@ class DetectorConstruction : public G4VUserDetectorConstruction
 
     // get methods
     //
-    const G4VPhysicalVolume* GetFiberPV(G4int i) const;
+    const G4VPhysicalVolume* GetDetectorPV() const;
 
   private:
     // methods
@@ -93,15 +75,15 @@ class DetectorConstruction : public G4VUserDetectorConstruction
     // data members
     //
 
-    G4VPhysicalVolume* fFiberPV[NLAYERS] = {nullptr}; // the fiber physical volume
+    G4VPhysicalVolume* fDetectorPV = nullptr; // the fiber physical volume
 
-    G4bool fCheckOverlaps = false; // option to activate checking of volumes overlaps
+    G4bool fCheckOverlaps = true; // option to activate checking of volumes overlaps
 };
 
 // inline functions
 
-inline const G4VPhysicalVolume* DetectorConstruction::GetFiberPV(G4int i) const {
-  return fFiberPV[i];
+inline const G4VPhysicalVolume* DetectorConstruction::GetDetectorPV() const {
+  return fDetectorPV;
 }
 
 }

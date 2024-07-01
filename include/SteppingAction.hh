@@ -39,8 +39,8 @@ namespace Detectors
 
 /// Stepping action class.
 ///
-/// In UserSteppingAction() there are collected the energy deposit and track
-/// lengths of charged particles in Absober and Gap layers and
+/// In UserSteppingAction() we collecte the energy deposit
+/// charged particles in Detector layer and
 /// updated in EventAction.
 
 class SteppingAction : public G4UserSteppingAction

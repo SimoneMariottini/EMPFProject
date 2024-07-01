@@ -46,56 +46,56 @@ namespace Detectors
 void EventAction::BeginOfEventAction(const G4Event* /*event*/)
 {
   // initialisation per event
-  for(int i = 0; i < NLAYERS; i++){
-    fEnergyTot = 0.;
-    fTrackLTot = 0.;
-    fEnergyFibers[i] = 0.;
-    fTrackLFibers[i] = 0.;
-  }
+  fEnergyDetector = 0.;
+  fEnergy5X0Detector = 0.;
+  fEnergyElectron = 0.;
+  fEnergyPositron = 0.;
+  fEnergyPhoton = 0.;
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 void EventAction::EndOfEventAction(const G4Event* event)
-{
+{ 
+  G4cout << "----------> Total Energy Deposit = " << fEnergyDetector << G4endl;
+  G4cout << "----------> Fraction of Energy Deposit in 5X0 = " << fEnergy5X0Detector << G4endl;
+  G4cout << "----------> Electron Energy Deposit = " << fEnergyElectron << G4endl;
+  G4cout << "----------> Positron Energy Deposit = " << fEnergyPositron << G4endl;
+  G4cout << "----------> Photon Energy Deposit = " << fEnergyPhoton << G4endl;
+  
   // get analysis manager
   auto analysisManager = G4AnalysisManager::Instance();
+  
+  analysisManager->FillNtupleDColumn(0, fEnergyDetector);
+  analysisManager->FillNtupleDColumn(1, fEnergy5X0Detector);
+  analysisManager->FillNtupleDColumn(2, fEnergyElectron);
+  analysisManager->FillNtupleDColumn(3, fEnergyPositron);
+  analysisManager->FillNtupleDColumn(4, fEnergyPhoton);
+  analysisManager->FillNtupleDColumn(5, fElectronN);
+  analysisManager->FillNtupleDColumn(6, fPositronN);
+  analysisManager->FillNtupleDColumn(7, fPhotonN);
+  
+  analysisManager->AddNtupleRow();
 
-  if(fEnergyFibers[0] != 0. && fEnergyFibers[NLAYERS - 1] != 0.){
-    G4int i = 0;
-    // fill histograms
-    analysisManager->FillH1(i, fEnergyTot);
-    analysisManager->FillNtupleDColumn(i, fEnergyTot);
-
-    i++;
-    analysisManager->FillH1(i, fTrackLTot);
-    analysisManager->FillNtupleDColumn(i, fTrackLTot);
-
-    for(int j = 0; j < NLAYERS; j++){
-      i++;
-      analysisManager->FillH1(i, fEnergyFibers[j]);
-      analysisManager->FillNtupleDColumn(i, fEnergyFibers[j]);
-      i++;
-      analysisManager->FillH1(i, fTrackLFibers[j]);
-      analysisManager->FillNtupleDColumn(i, fTrackLFibers[j]);
-    }
-    
-    analysisManager->AddNtupleRow();
-
-    // Print per event (modulo n)
-    //
-    auto eventID = event->GetEventID();
-    auto printModulo = G4RunManager::GetRunManager()->GetPrintProgress();
-    if ( ( printModulo > 0 ) && ( eventID % printModulo == 0 ) ) {
-      G4cout
-        << "   Fiber: total energy: " << std::setw(7)
-                                          << G4BestUnit(fEnergyTot,"Energy")
-        << "       total track length: " << std::setw(7)
-                                          << G4BestUnit(fTrackLTot,"Length")
-        << G4endl;
-      G4cout << "--> End of event " << eventID << "\n" << G4endl;       
+  for(int i = 0; i < nnumberOfBins; i++){
+    for(int j = 0; j < (int)fLongEnergyDeposit[i]; j++){
+      analysisManager->FillH1(0, i/2. + 0.25);
     }
   }
+  /*
+  // Print per event (modulo n)
+  //
+  auto eventID = event->GetEventID();
+  auto printModulo = G4RunManager::GetRunManager()->GetPrintProgress();
+  if ( ( printModulo > 0 ) && ( eventID % printModulo == 0 ) ) {
+    G4cout
+      << "   Fiber: total energy: " << std::setw(7)
+                                        << G4BestUnit(fEnergyTot,"Energy")
+      << "       total track length: " << std::setw(7)
+                                        << G4BestUnit(fTrackLTot,"Length")
+      << G4endl;
+    G4cout << "--> End of event " << eventID << "\n" << G4endl;       
+  }*/
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo.....

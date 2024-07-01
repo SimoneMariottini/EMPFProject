@@ -48,7 +48,7 @@
 namespace {
   void PrintUsage() {
     G4cerr << " Usage: " << G4endl;
-    G4cerr << " brooklyn2024 [-m macro ] [-u UIsession] [-t nThreads] [-vDefault]"
+    G4cerr << " Detectors [-m macro ] [-u UIsession] [-t nThreads] [-vDefault]"
            << G4endl;
     G4cerr << "   note: -t option is available only for multi-threaded mode."
            << G4endl;
@@ -116,32 +116,17 @@ int main(int argc,char** argv)
   }
 #endif
 
-#if !Acceptance
   // Set mandatory initialization classes
   //
-  auto detConstruction = new brooklyn2024::DetectorConstruction();
+  auto detConstruction = new Detectors::DetectorConstruction();
   runManager->SetUserInitialization(detConstruction);
 
   auto physicsList = new FTFP_BERT;
   runManager->SetUserInitialization(physicsList);
 
-  auto actionInitialization = new brooklyn2024::ActionInitialization(detConstruction);
+  auto actionInitialization = new Detectors::ActionInitialization(detConstruction);
   runManager->SetUserInitialization(actionInitialization);
 
-#else
-
-  // Set mandatory initialization classes
-  //
-  auto detConstruction = new brooklyn2024::DetectorConstruction();
-  runManager->SetUserInitialization(detConstruction);
-
-  auto physicsList = new FTFP_BERT;
-  runManager->SetUserInitialization(physicsList);
-
-  auto actionInitialization = new brooklyn2024Acceptance::ActionInitialization(detConstruction);
-  runManager->SetUserInitialization(actionInitialization);
-
-#endif
 
 
   // Initialize visualization

@@ -51,8 +51,6 @@ RunAction::RunAction()
   auto analysisManager = G4AnalysisManager::Instance();
 
   // Create directories
-  //analysisManager->SetHistoDirectoryName("histograms");
-  //analysisManager->SetNtupleDirectoryName("ntuple");
   analysisManager->SetVerboseLevel(1);
   analysisManager->SetNtupleMerging(true);
     // Note: merging ntuples is available only with Root output
@@ -61,22 +59,18 @@ RunAction::RunAction()
   //
 
   // Creating histograms
-  analysisManager->CreateH1("Etot" ,"Edep in hodoscope", 100, 0., 0.050*MeV);
-  analysisManager->CreateH1("Ltot" ,"trackL in hodoscope", 100, 0., 50*cm);
+  analysisManager->CreateH1("ShowerLongProfile" ,"Shower Longitudinal Profile", nnumberOfBins, 0., 50.);
   
   // Creating ntuple
-  analysisManager->CreateNtuple("Brooklyn2024", "Edep and TrackL");
-  analysisManager->CreateNtupleDColumn("Etot");
-  analysisManager->CreateNtupleDColumn("Ltot");
-
-  for(int i = 0; i < NLAYERS; i++){
-    analysisManager->CreateH1("E_" + to_string(i) ,"Edep in fiber layer " + to_string(i), 100, 0., 0.010*MeV);
-    analysisManager->CreateH1("L_" + to_string(i) ,"trackL in fiber layer" + to_string(i), 100, 0., 50*cm);
-
-    analysisManager->CreateNtupleDColumn("E_" + to_string(i));
-    analysisManager->CreateNtupleDColumn("L_" + to_string(i));
-  }
-
+  analysisManager->CreateNtuple("Detector", "Simulation results");
+  analysisManager->CreateNtupleDColumn("TotEnergyDeposit");
+  analysisManager->CreateNtupleDColumn("EnergyDeposit5X0");
+  analysisManager->CreateNtupleDColumn("ElectronEnergy");
+  analysisManager->CreateNtupleDColumn("PositronEnergy");
+  analysisManager->CreateNtupleDColumn("PhotonEnergy");
+  analysisManager->CreateNtupleDColumn("NElectron");
+  analysisManager->CreateNtupleDColumn("NPositron");
+  analysisManager->CreateNtupleDColumn("NPhoton");
   analysisManager->FinishNtuple();
 }
 
@@ -92,19 +86,23 @@ void RunAction::BeginOfRunAction(const G4Run* /*run*/)
 
   // Open an output file
   //
-  G4String fileName = "brooklyn2024.root";
+  G4String fileName = "detectors.root";
 
   analysisManager->OpenFile(fileName);
   G4cout << "Using " << analysisManager->GetType() << G4endl;
+  
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 void RunAction::EndOfRunAction(const G4Run* /*run*/)
-{
+{ 
+
+  
   // print histogram statistics
   //
   auto analysisManager = G4AnalysisManager::Instance();
+  /*
   if ( analysisManager->GetH1(1) ) {
     G4cout << G4endl << " ----> print histograms statistic ";
     if(isMaster) {
@@ -141,7 +139,7 @@ void RunAction::EndOfRunAction(const G4Run* /*run*/)
           << G4BestUnit(analysisManager->GetH1(i)->rms(),  "Length") << G4endl; 
       }    
   }
-
+  */
   // save histograms & ntuple
   //
   analysisManager->Write();

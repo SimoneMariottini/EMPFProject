@@ -54,23 +54,52 @@ class EventAction : public G4UserEventAction
     void   BeginOfEventAction(const G4Event* event) override;
     void   EndOfEventAction(const G4Event* event) override;
 
-    void AddLayer(G4int i, G4double de, G4double dl);
+    void AddEnergy(G4double de);
+    void Add5X0Energy(G4double de);
+    void AddElectronEnergy(G4double de);
+    void AddPositronEnergy(G4double de);
+    void AddPhotonEnergy(G4double de);
+    void AddLongEnergy(G4int i, G4double de);
 
   private:
-    G4double  fEnergyFibers[NLAYERS] = {0.};
-    G4double  fTrackLFibers[NLAYERS] = {0.};
-    G4double  fEnergyTot = 0.;
-    G4double  fTrackLTot = 0.;
+    G4double fEnergyDetector = 0.;
+    G4double fEnergy5X0Detector = 0.;
+    G4double fEnergyElectron = 0.;
+    G4int fElectronN = 0;
+    G4double fEnergyPositron = 0.;
+    G4int fPositronN = 0;
+    G4double fEnergyPhoton = 0.;
+    G4int fPhotonN = 0;
+    G4double fLongEnergyDeposit[100] = {0.};
 };
 
 // inline functions
 
-inline void EventAction::AddLayer(G4int i, G4double de, G4double dl) {
-  fEnergyFibers[i] += de;
-  fTrackLFibers[i] += dl;
-  fEnergyTot += de;
-  fTrackLTot += dl;
+inline void EventAction::AddEnergy(G4double de) {
+  fEnergyDetector += de;
 }
+
+inline void EventAction::Add5X0Energy(G4double de) {
+  fEnergy5X0Detector += de;
+}
+
+inline void EventAction::AddElectronEnergy(G4double de) {
+  fEnergyElectron += de;
+}
+
+inline void EventAction::AddPositronEnergy(G4double de) {
+  fEnergyPositron += de;
+}
+
+inline void EventAction::AddPhotonEnergy(G4double de) {
+  fEnergyPhoton += de;
+}
+
+inline void EventAction::AddLongEnergy(G4int i, G4double de) {
+  fLongEnergyDeposit[i] += de;
+}
+
+
 
 }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

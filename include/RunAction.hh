@@ -35,9 +35,13 @@
 
 class G4Run;
 
+
+#define nnumberOfBins 100
+
+
 namespace Detectors
 {
-  #define NLAYERS 16
+  
 
 /// Run action class
 ///
@@ -68,5 +72,7 @@ class RunAction : public G4UserRunAction
 };
 
 }
+
+#endif
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
