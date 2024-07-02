@@ -51,6 +51,9 @@ void EventAction::BeginOfEventAction(const G4Event* /*event*/)
   fEnergyElectron = 0.;
   fEnergyPositron = 0.;
   fEnergyPhoton = 0.;
+  fElectronCounter = 0;
+  fPositronCounter = 0;
+  fPhotonCounter = 0; 
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -62,6 +65,9 @@ void EventAction::EndOfEventAction(const G4Event* event)
   G4cout << "----------> Electron Energy Deposit = " << fEnergyElectron << G4endl;
   G4cout << "----------> Positron Energy Deposit = " << fEnergyPositron << G4endl;
   G4cout << "----------> Photon Energy Deposit = " << fEnergyPhoton << G4endl;
+  G4cout << "----------> Number of secondary Electrons = " << fElectronCounter << G4endl;
+  G4cout << "----------> Number of secondary Positrons = " << fPositronCounter << G4endl;
+  G4cout << "----------> Number of secondary Photon = " << fPhotonCounter << G4endl;
   
   // get analysis manager
   auto analysisManager = G4AnalysisManager::Instance();
@@ -71,9 +77,9 @@ void EventAction::EndOfEventAction(const G4Event* event)
   analysisManager->FillNtupleDColumn(2, fEnergyElectron);
   analysisManager->FillNtupleDColumn(3, fEnergyPositron);
   analysisManager->FillNtupleDColumn(4, fEnergyPhoton);
-  analysisManager->FillNtupleDColumn(5, fElectronN);
-  analysisManager->FillNtupleDColumn(6, fPositronN);
-  analysisManager->FillNtupleDColumn(7, fPhotonN);
+  analysisManager->FillNtupleDColumn(5, fElectronCounter);
+  analysisManager->FillNtupleDColumn(6, fPositronCounter);
+  analysisManager->FillNtupleDColumn(7, fPhotonCounter);
   
   analysisManager->AddNtupleRow();
 

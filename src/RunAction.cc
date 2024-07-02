@@ -71,6 +71,7 @@ RunAction::RunAction()
   analysisManager->CreateNtupleDColumn("NElectron");
   analysisManager->CreateNtupleDColumn("NPositron");
   analysisManager->CreateNtupleDColumn("NPhoton");
+
   analysisManager->FinishNtuple();
 }
 

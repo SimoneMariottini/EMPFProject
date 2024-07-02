@@ -60,17 +60,20 @@ class EventAction : public G4UserEventAction
     void AddPositronEnergy(G4double de);
     void AddPhotonEnergy(G4double de);
     void AddLongEnergy(G4int i, G4double de);
+    void AddElectron() {fElectronCounter++;};
+    void AddPositron() {fPositronCounter++;};
+    void AddPhoton() {fPhotonCounter++;};
 
   private:
     G4double fEnergyDetector = 0.;
     G4double fEnergy5X0Detector = 0.;
     G4double fEnergyElectron = 0.;
-    G4int fElectronN = 0;
     G4double fEnergyPositron = 0.;
-    G4int fPositronN = 0;
     G4double fEnergyPhoton = 0.;
-    G4int fPhotonN = 0;
     G4double fLongEnergyDeposit[100] = {0.};
+    G4int fElectronCounter = 0;
+    G4int fPositronCounter = 0;
+    G4int fPhotonCounter = 0; 
 };
 
 // inline functions

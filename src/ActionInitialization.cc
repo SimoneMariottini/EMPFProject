@@ -31,6 +31,7 @@
 #include "PrimaryGeneratorAction.hh"
 #include "RunAction.hh"
 #include "EventAction.hh"
+#include "TrackingAction.hh"
 #include "SteppingAction.hh"
 
 //using namespace brooklyn2024;
@@ -59,6 +60,7 @@ void ActionInitialization::Build() const
   SetUserAction(new RunAction);
   auto eventAction = new EventAction;
   SetUserAction(eventAction);
+  SetUserAction(new TrackingAction(eventAction));
   SetUserAction(new SteppingAction(fDetConstruction,eventAction));
 }
 

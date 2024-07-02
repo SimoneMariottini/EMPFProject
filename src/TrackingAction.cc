@@ -10,20 +10,20 @@
 /////////////////////////////////////////////////////////////////////////
 
 
-#include "UserTrackingAction.hh"
+#include "TrackingAction.hh"
 #include "G4TrackingManager.hh"
 #include "G4Electron.hh"
 #include "G4Positron.hh"
 #include "G4Gamma.hh"
 
+namespace Detectors{
 
-UserTrackingAction::UserTrackingAction() :
-    electron_counter(0), positron_counter(0), photon_counter(0) {
-
+TrackingAction::TrackingAction(EventAction* eventAction) {
+    fEventAction = eventAction;
 }
 
 
-void UserTrackingAction::PostUserTrackingAction(const G4Track*) {
+void TrackingAction::PostUserTrackingAction(const G4Track*) {
 
   // The user tracking action class holds the pointer to the tracking manager:
   // fpTrackingManager
@@ -35,16 +35,18 @@ void UserTrackingAction::PostUserTrackingAction(const G4Track*) {
   // You can use the secTracks vector to retrieve the number of secondary 
   // electrons
   if(secTracks) { 
-     size_t nmbSecTracks = (*secTracks).size();       
+     size_t nmbSecTracks = secTracks->size();       
 
      for(size_t i = 0; i < nmbSecTracks; i++) { 
         if((*secTracks)[i] -> GetDefinition() == G4Electron::Definition()){
-              electron_counter++;
+            fEventAction->AddElectron();
         } else if((*secTracks)[i] -> GetDefinition() == G4Positron::Definition()){
-            positron_counter++;
+            fEventAction->AddPositron();
         } else if((*secTracks)[i] -> GetDefinition() == G4Gamma::Definition()){
-            photon_counter++;
+            fEventAction->AddPhoton();
         }
      }
   }
+}
+
 }
