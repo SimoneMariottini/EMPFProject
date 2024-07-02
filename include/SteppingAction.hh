@@ -33,6 +33,7 @@
 #include "G4UserSteppingAction.hh"
 #include "DetectorConstruction.hh"
 #include "EventAction.hh"
+#include "G4SystemOfUnits.hh"
 
 namespace Detectors
 {
@@ -55,6 +56,10 @@ public:
 private:
   const DetectorConstruction* fDetConstruction = nullptr;
   EventAction* fEventAction = nullptr;
+
+  G4double radLenght = 1.86*cm;
+  G4double molierRad = 3.531*cm;
+  G4double latContainment = 49.871844*cm*cm;
 };
 
 }

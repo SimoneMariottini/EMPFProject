@@ -99,8 +99,8 @@ G4VPhysicalVolume* DetectorConstruction::DefineVolumes()
   G4double radLenght = 1.86*cm;
   G4double molierRad = 3.531*cm;
 
-  G4double detX = molierRad*10;
-  G4double detY = molierRad*10;
+  G4double detX = molierRad*15;
+  G4double detY = molierRad*15;
   G4double detZ = radLenght*40;
 
   auto worldSizeX = 1.2 * detX;
@@ -162,6 +162,24 @@ G4VPhysicalVolume* DetectorConstruction::DefineVolumes()
     0,                        // copy number
     fCheckOverlaps);          // checking overlaps
 
+  auto detector5X0S
+    = new G4Box("Detector5X0",     // its name
+                 detX/2., detY/2., radLenght*2.5); // its size
+
+  auto detector5X0LV
+    = new G4LogicalVolume(
+                 detector5X0S,     // its solid
+                 detectorMaterial,  // its material
+                 "Detector5X0");   // its name
+
+  new G4PVPlacement(nullptr,  // no rotation
+    G4ThreeVector(0, 0, -detZ/2. + radLenght*2.5),          // at (0,0,0)
+    detector5X0LV,                  // its logical volume
+    "Detector5X0",            // its name
+    detectorLV,                  // its mother  volume
+    false,                    // no boolean operation
+    0,                        // copy number
+    fCheckOverlaps);          // checking overlaps
   //
   // print parameters
   //
@@ -179,6 +197,9 @@ G4VPhysicalVolume* DetectorConstruction::DefineVolumes()
 
   worldLV->SetVisAttributes(G4VisAttributes::GetInvisible());
   detectorLV->SetVisAttributes(G4VisAttributes(G4Colour::Grey()));
+  auto vis5X0 = G4VisAttributes(G4Colour::Red());
+  vis5X0.SetLineWidth(2.);
+  detector5X0LV->SetVisAttributes(vis5X0);
 
   //
   // Always return the physical World

@@ -56,6 +56,7 @@ class EventAction : public G4UserEventAction
 
     void AddEnergy(G4double de);
     void Add5X0Energy(G4double de);
+    void AddLateralEnergy(G4double de);
     void AddElectronEnergy(G4double de);
     void AddPositronEnergy(G4double de);
     void AddPhotonEnergy(G4double de);
@@ -67,6 +68,7 @@ class EventAction : public G4UserEventAction
   private:
     G4double fEnergyDetector = 0.;
     G4double fEnergy5X0Detector = 0.;
+    G4double fLateralEnergy = 0.;
     G4double fEnergyElectron = 0.;
     G4double fEnergyPositron = 0.;
     G4double fEnergyPhoton = 0.;
@@ -84,6 +86,10 @@ inline void EventAction::AddEnergy(G4double de) {
 
 inline void EventAction::Add5X0Energy(G4double de) {
   fEnergy5X0Detector += de;
+}
+
+inline void EventAction::AddLateralEnergy(G4double de) {
+  fLateralEnergy += de;
 }
 
 inline void EventAction::AddElectronEnergy(G4double de) {

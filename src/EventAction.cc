@@ -48,6 +48,7 @@ void EventAction::BeginOfEventAction(const G4Event* /*event*/)
   // initialisation per event
   fEnergyDetector = 0.;
   fEnergy5X0Detector = 0.;
+  fLateralEnergy = 0.;
   fEnergyElectron = 0.;
   fEnergyPositron = 0.;
   fEnergyPhoton = 0.;
@@ -62,6 +63,7 @@ void EventAction::EndOfEventAction(const G4Event* event)
 { 
   G4cout << "----------> Total Energy Deposit = " << fEnergyDetector << G4endl;
   G4cout << "----------> Fraction of Energy Deposit in 5X0 = " << fEnergy5X0Detector << G4endl;
+  G4cout << "----------> Fraction of Energy Deposit within 4*MolRad^2 = " << fLateralEnergy << G4endl;
   G4cout << "----------> Electron Energy Deposit = " << fEnergyElectron << G4endl;
   G4cout << "----------> Positron Energy Deposit = " << fEnergyPositron << G4endl;
   G4cout << "----------> Photon Energy Deposit = " << fEnergyPhoton << G4endl;
@@ -74,12 +76,13 @@ void EventAction::EndOfEventAction(const G4Event* event)
   
   analysisManager->FillNtupleDColumn(0, fEnergyDetector);
   analysisManager->FillNtupleDColumn(1, fEnergy5X0Detector);
-  analysisManager->FillNtupleDColumn(2, fEnergyElectron);
-  analysisManager->FillNtupleDColumn(3, fEnergyPositron);
-  analysisManager->FillNtupleDColumn(4, fEnergyPhoton);
-  analysisManager->FillNtupleDColumn(5, fElectronCounter);
-  analysisManager->FillNtupleDColumn(6, fPositronCounter);
-  analysisManager->FillNtupleDColumn(7, fPhotonCounter);
+  analysisManager->FillNtupleDColumn(2, fLateralEnergy);
+  analysisManager->FillNtupleDColumn(3, fEnergyElectron);
+  analysisManager->FillNtupleDColumn(4, fEnergyPositron);
+  analysisManager->FillNtupleDColumn(5, fEnergyPhoton);
+  analysisManager->FillNtupleDColumn(6, fElectronCounter);
+  analysisManager->FillNtupleDColumn(7, fPositronCounter);
+  analysisManager->FillNtupleDColumn(8, fPhotonCounter);
   
   analysisManager->AddNtupleRow();
 

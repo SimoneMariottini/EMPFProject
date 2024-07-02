@@ -30,7 +30,6 @@
 #include "SteppingAction.hh"
 #include "EventAction.hh"
 #include "DetectorConstruction.hh"
-#include "G4SystemOfUnits.hh"
 
 #include "G4Step.hh"
 #include "G4RunManager.hh"
@@ -54,7 +53,6 @@ SteppingAction::SteppingAction(const DetectorConstruction* detConstruction,
 
 void SteppingAction::UserSteppingAction(const G4Step* step)
 {
-  G4double radLenght = 1.86*cm;
 // Collect energy and track length step by step
 
   // get volume of the current step
@@ -65,9 +63,15 @@ void SteppingAction::UserSteppingAction(const G4Step* step)
   auto edep = step->GetTotalEnergyDeposit();
 
   if ( volume == fDetConstruction->GetDetectorPV()) {
+
       fEventAction->AddEnergy(edep);
+
       if (position.getZ() <= -15*radLenght){
-          fEventAction->Add5X0Energy(edep);
+        fEventAction->Add5X0Energy(edep);
+      }
+
+      if(position.getX()*position.getX() + position.getY()*position.getY() <= latContainment){
+        fEventAction->AddLateralEnergy(edep);
       }
       
       if(particle == G4Electron::Definition()){

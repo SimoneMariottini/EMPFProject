@@ -65,6 +65,7 @@ RunAction::RunAction()
   analysisManager->CreateNtuple("Detector", "Simulation results");
   analysisManager->CreateNtupleDColumn("TotEnergyDeposit");
   analysisManager->CreateNtupleDColumn("EnergyDeposit5X0");
+  analysisManager->CreateNtupleDColumn("EnergyDeposit4MolRad^2");
   analysisManager->CreateNtupleDColumn("ElectronEnergy");
   analysisManager->CreateNtupleDColumn("PositronEnergy");
   analysisManager->CreateNtupleDColumn("PhotonEnergy");
