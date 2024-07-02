@@ -61,16 +61,20 @@ void EventAction::BeginOfEventAction(const G4Event* /*event*/)
 
 void EventAction::EndOfEventAction(const G4Event* event)
 { 
-  G4cout << "----------> Total Energy Deposit = " << fEnergyDetector << G4endl;
-  G4cout << "----------> Fraction of Energy Deposit in 5X0 = " << fEnergy5X0Detector << G4endl;
-  G4cout << "----------> Fraction of Energy Deposit within 4*MolRad^2 = " << fLateralEnergy << G4endl;
-  G4cout << "----------> Electron Energy Deposit = " << fEnergyElectron << G4endl;
-  G4cout << "----------> Positron Energy Deposit = " << fEnergyPositron << G4endl;
-  G4cout << "----------> Photon Energy Deposit = " << fEnergyPhoton << G4endl;
-  G4cout << "----------> Number of secondary Electrons = " << fElectronCounter << G4endl;
-  G4cout << "----------> Number of secondary Positrons = " << fPositronCounter << G4endl;
-  G4cout << "----------> Number of secondary Photon = " << fPhotonCounter << G4endl;
-  
+  auto eventID = event->GetEventID();
+  //auto printModulo = G4RunManager::GetRunManager()->GetPrintProgress();
+  if ( eventID % 100 == 0 ) {
+    G4cout << "----------> Total Energy Deposit = " << fEnergyDetector << G4endl;
+    G4cout << "----------> Fraction of Energy Deposit in 5X0 = " << fEnergy5X0Detector << G4endl;
+    G4cout << "----------> Fraction of Energy Deposit within 4*MolRad^2 = " << fLateralEnergy << G4endl;
+    G4cout << "----------> Electron Energy Deposit = " << fEnergyElectron << G4endl;
+    G4cout << "----------> Positron Energy Deposit = " << fEnergyPositron << G4endl;
+    G4cout << "----------> Photon Energy Deposit = " << fEnergyPhoton << G4endl;
+    G4cout << "----------> Number of secondary Electrons = " << fElectronCounter << G4endl;
+    G4cout << "----------> Number of secondary Positrons = " << fPositronCounter << G4endl;
+    G4cout << "----------> Number of secondary Photon = " << fPhotonCounter << G4endl;
+  }
+
   // get analysis manager
   auto analysisManager = G4AnalysisManager::Instance();
   

@@ -36,6 +36,7 @@
 #include "G4UImanager.hh"
 #include "G4UIExecutive.hh"
 #include "G4VisExecutive.hh"
+#include "G4PhysListFactory.hh"
 #include "FTFP_BERT.hh"
 
 //hsgerjhwgetkuhawetluh
@@ -121,8 +122,9 @@ int main(int argc,char** argv)
   auto detConstruction = new Detectors::DetectorConstruction();
   runManager->SetUserInitialization(detConstruction);
 
-  auto physicsList = new FTFP_BERT;
-  runManager->SetUserInitialization(physicsList);
+  G4PhysListFactory physListFactory;
+  auto physicsList = physListFactory;
+  runManager->SetUserInitialization(physListFactory.GetReferencePhysList("FTFP_BERT_EMZ"));
 
   auto actionInitialization = new Detectors::ActionInitialization(detConstruction);
   runManager->SetUserInitialization(actionInitialization);
