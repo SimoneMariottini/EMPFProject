@@ -1,32 +1,3 @@
-//
-// ********************************************************************
-// * License and Disclaimer                                           *
-// *                                                                  *
-// * The  Geant4 software  is  copyright of the Copyright Holders  of *
-// * the Geant4 Collaboration.  It is provided  under  the terms  and *
-// * conditions of the Geant4 Software License,  included in the file *
-// * LICENSE and available at  http://cern.ch/geant4/license .  These *
-// * include a list of copyright holders.                             *
-// *                                                                  *
-// * Neither the authors of this software system, nor their employing *
-// * institutes,nor the agencies providing financial support for this *
-// * work  make  any representation or  warranty, express or implied, *
-// * regarding  this  software system or assume any liability for its *
-// * use.  Please see the license in the file  LICENSE  and URL above *
-// * for the full disclaimer and the limitation of liability.         *
-// *                                                                  *
-// * This  code  implementation is the result of  the  scientific and *
-// * technical work of the GEANT4 collaboration.                      *
-// * By using,  copying,  modifying or  distributing the software (or *
-// * any work based  on the software)  you  agree  to acknowledge its *
-// * use  in  resulting  scientific  publications,  and indicate your *
-// * acceptance of all terms of the Geant4 Software license.          *
-// ********************************************************************
-//
-//
-/// \file B4/B4a/include/DetectorConstruction.hh
-/// \brief Definition of the B4::DetectorConstruction class
-
 #ifndef DetectorConstruction_h
 #define DetectorConstruction_h 1
 
@@ -40,16 +11,11 @@ namespace Detectors
 {
 
 /// Detector construction class to define materials and geometry.
-/// The hodoscope is a block made up of scintillating fiber layers.
-/// Every layer has only one type of fiber but the fibers change in shape and size between layers.
-/// Every layer is separated by a sheet of plastic of varying thickness.
-/// We define three arrays containing the following information for each layer:
-/// - the thickness of the fibers;
-/// - the shape of the fibers;
-/// - the thickness of the separator.
-/// Other detector parameters are:
-/// - The width of the block - 16mm; 
-/// - The lenght of the block - 20cm.
+/// The detector is a block of CsI.
+/// The detector parameters are:
+/// - The width of the block - 15R_m; 
+/// - The heigth of the block - 15R_m; 
+/// - The lenght of the block - 40X0.
 
 class DetectorConstruction : public G4VUserDetectorConstruction
 {
@@ -59,7 +25,6 @@ class DetectorConstruction : public G4VUserDetectorConstruction
 
   public:
     G4VPhysicalVolume* Construct() override;
-    //void ConstructSDandField() override;
 
     // get methods
     //
@@ -75,7 +40,7 @@ class DetectorConstruction : public G4VUserDetectorConstruction
     // data members
     //
 
-    G4VPhysicalVolume* fDetectorPV = nullptr; // the fiber physical volume
+    G4VPhysicalVolume* fDetectorPV = nullptr; // the detector physical volume
 
     G4bool fCheckOverlaps = true; // option to activate checking of volumes overlaps
 };

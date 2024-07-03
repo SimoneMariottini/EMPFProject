@@ -42,8 +42,6 @@
 //hsgerjhwgetkuhawetluh
 #include "Randomize.hh"
 
-#define Acceptance false
-
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 namespace {
@@ -98,9 +96,6 @@ int main(int argc,char** argv)
     ui = new G4UIExecutive(argc, argv, session);
   }
 
-  // Optionally: choose a different Random engine...
-  // G4Random::setTheEngine(new CLHEP::MTwistEngine);
-
   // Use G4SteppingVerboseWithUnits
   if ( verboseBestUnits ) {
     G4int precision = 4;
@@ -133,9 +128,9 @@ int main(int argc,char** argv)
 
   // Initialize visualization
   //
-  auto visManager = new G4VisExecutive;
   // G4VisExecutive can take a verbosity argument - see /vis/verbose guidance.
-  // auto visManager = new G4VisExecutive("Quiet");
+  //auto visManager = new G4VisExecutive;
+  auto visManager = new G4VisExecutive("Quiet");
   visManager->Initialize();
 
   // Get the pointer to the User Interface manager
@@ -157,11 +152,6 @@ int main(int argc,char** argv)
     ui->SessionStart();
     delete ui;
   }
-
-  // Job termination
-  // Free the store: user actions, physics_list and detector_description are
-  // owned and deleted by the run manager, so they should not be deleted
-  // in the main() program !
 
   delete visManager;
   delete runManager;

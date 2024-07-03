@@ -1,15 +1,3 @@
-
-/////////////////////////////////////////////////////////////////////////
-// G4Tutorial:
-//
-// UserTrackingAction.hh
-// 
-// Defining actions performed at the start/end point of processing a
-// track
-//
-/////////////////////////////////////////////////////////////////////////
-
-
 #include "TrackingAction.hh"
 #include "G4TrackingManager.hh"
 #include "G4Electron.hh"
@@ -25,11 +13,6 @@ TrackingAction::TrackingAction(EventAction* eventAction) {
 
 void TrackingAction::PostUserTrackingAction(const G4Track*) {
 
-  // The user tracking action class holds the pointer to the tracking manager:
-  // fpTrackingManager
-
-  // From the tracking manager we can retrieve the secondary track vector,
-  // which is a container class for tracks:
   G4TrackVector* secTracks = fpTrackingManager -> GimmeSecondaries();
 
   // You can use the secTracks vector to retrieve the number of secondary 
